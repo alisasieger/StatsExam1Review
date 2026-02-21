@@ -70,6 +70,12 @@ index.html
       font-weight: bold;
     }
 
+    #feedback {
+      margin-top: 10px;
+      font-weight: bold;
+      height: 24px;
+    }
+
   </style>
 </head>
 <body>
@@ -111,6 +117,7 @@ index.html
   <div class="question-box">
     <h3 id="question"></h3>
     <div id="answers"></div>
+    <div id="feedback"></div>
   </div>
 
 </div>
@@ -157,15 +164,20 @@ function loadQuestion(){
   document.getElementById("question").innerText = q.q;
   const answersDiv = document.getElementById("answers");
   answersDiv.innerHTML="";
+  document.getElementById("feedback").innerText="";
   q.a.forEach((text,i)=>{
     const btn=document.createElement("button");
     btn.innerText=text;
     btn.onclick=function(){
       if(i===q.c){
         coins+=10;
+        document.getElementById("feedback").innerText="✅ Correct! +10 coins";
+        happiness = Math.min(100, happiness + 2); // small happiness boost
+      } else {
+        document.getElementById("feedback").innerText="❌ Wrong!";
       }
       updateBars();
-      loadQuestion();
+      setTimeout(loadQuestion, 1000); // wait 1 sec before next question
     }
     answersDiv.appendChild(btn);
   });
@@ -187,9 +199,9 @@ function buyOutfit(){
 function gameLoop(){
   if(gameOver) return;
 
-  hunger-=1;
-  thirst-=1;
-  happiness-=0.5;
+  hunger -= 0.5;     // slower
+  thirst -= 0.7;     // slower
+  happiness -= 0.2;  // slower
 
   timeSurvived++;
   document.getElementById("time").innerText=timeSurvived;
