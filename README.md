@@ -187,9 +187,9 @@ function buyOutfit(){
 function gameLoop(){
   if(gameOver) return;
 
-  hunger-=2;
-  thirst-=3;
-  happiness-=1;
+  hunger-=1;
+  thirst-=1;
+  happiness-=0.5;
 
   timeSurvived++;
   document.getElementById("time").innerText=timeSurvived;
